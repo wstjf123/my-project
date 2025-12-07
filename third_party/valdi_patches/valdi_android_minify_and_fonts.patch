@@ -1,6 +1,6 @@
 --- a/bzl/valdi/valdi_android_application.bzl
 +++ b/bzl/valdi/valdi_android_application.bzl
-@@ -99,6 +99,12 @@
+@@ -99,6 +99,10 @@
          assets = assets,
          assets_dir = assets_dir,
          resource_files = resource_files,
@@ -13,19 +13,15 @@
              ":{}".format(src_target),
 --- a/valdi/BUILD.bazel
 +++ b/valdi/BUILD.bazel
-@@ -432,7 +432,11 @@
- 
- ANDROID_XML_RES = glob(["res/xml/**/*.xml"])
+@@ -432,7 +432,10 @@
  
  ANDROID_FONT_RES = glob(
      ["res/font/**"],
 -    exclude = ["**/.DS_Store"],
 +    exclude = [
 +        "**/.DS_Store",
-+        # Exclude bundled Avenir Next fonts from this resource set.
 +        "res/font/avenir_next_*.ttf",
 +    ],
  )
  
  ANDROID_DEBUG_RES = ANDROID_XML_RES + ANDROID_FONT_RES
-
