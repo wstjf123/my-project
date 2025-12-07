@@ -40,6 +40,11 @@ jobs:
         with:
           node-version: "20"
 
+      - name: Install libtinfo5
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libtinfo5
+
       - name: Install Valdi CLI
         run: npm install -g @snap/valdi
 
