@@ -48,9 +48,13 @@ jobs:
       - name: Find APK
         id: find_apk
         run: |
-          APK_PATH=$(find . -type f -name "*.apk" -print -quit)
+          # Bazel reports APK as bazel-bin/my_project_app_android.apk
+          # bazel-bin is a symlink into Bazel's output tree, so follow symlinks.
+          APK_PATH=$(find bazel-bin -L -type f -name "*.apk" -print -quit)
           if [ -z "$APK_PATH" ]; then
-            echo "No APK found"
+            echo "No APK found under bazel-bin"
+            echo "bazel-bin contents:"
+            ls -R bazel-bin || true
             exit 1
           fi
           echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
