@@ -15,14 +15,13 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Cache Bazel and Android SDK
+      - name: Cache Bazel and Valdi
         uses: actions/cache@v4
         with:
           path: |
             ~/.cache/bazel
             ~/.cache/bazelisk
             ~/.valdi
-            ~/Android/Sdk
           key: bazel-android-${{ runner.os }}-${{ hashFiles('WORKSPACE', '.bazelrc', 'BUILD.bazel', 'modules/**/BUILD.bazel') }}
           restore-keys: |
             bazel-android-${{ runner.os }}-
