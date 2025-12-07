@@ -11,17 +11,3 @@
          tags = ["valdi_android_application"],
          deps = [
              ":{}".format(src_target),
---- a/valdi/BUILD.bazel
-+++ b/valdi/BUILD.bazel
-@@ -432,7 +432,10 @@
- 
- ANDROID_FONT_RES = glob(
-     ["res/font/**"],
--    exclude = ["**/.DS_Store"],
-+    exclude = [
-+        "**/.DS_Store",
-+        "res/font/avenir_next_*.ttf",
-+    ],
- )
- 
- ANDROID_DEBUG_RES = ANDROID_XML_RES + ANDROID_FONT_RES
