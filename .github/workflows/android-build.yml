@@ -34,14 +34,16 @@ jobs:
       - name: Run Valdi dev_setup
         run: valdi dev_setup
 
-      - name: Bazelisk projectsync build
-        run: |
-          bazelisk build //modules/my-project:my-project_projectsync \
-            --strategy=ValdiProjectSync=local \
-            --spawn_strategy=local
-
-      - name: Build Android APK
-        run: valdi build android
+      - name: Build Android APK (release, arm64)
+        run: >
+          bazelisk build //:my-project_app_android
+          --snap_flavor=production
+          -c opt
+          --copt=-DANDROID_WITH_JNI
+          --repo_env=VALDI_PLATFORM_DEPENDENCIES=android
+          --define client_repo_arm64=true
+          --fat_apk_cpu=arm64-v8a
+          --android_cpu=arm64-v8a
 
       - name: Find APK
         id: find_apk
@@ -58,4 +60,3 @@ jobs:
         with:
           name: android-apk
           path: ${{ steps.find_apk.outputs.apk_path }}
-
