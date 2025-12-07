@@ -62,10 +62,10 @@ valdi hotreload
 valdi projectsync
 
 # Build specific targets with Bazel
-bazel build //modules/my-project:my-project
+bazel build //modules/my_project:my_project
 
 # Run tests
-bazel test //modules/my-project:tests
+bazel test //modules/my_project:tests
 ```
 
 ## Valdi Component Basics
@@ -199,4 +199,3 @@ See Valdi documentation at `/docs/docs/workflow-hermes-debugger.md` for detailed
 ---
 
 *This document is intended for AI coding assistants to quickly understand this Valdi application. For comprehensive Valdi framework documentation, refer to the main Valdi repository at https://github.com/Snapchat/Valdi*
-

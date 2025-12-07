@@ -36,7 +36,7 @@ jobs:
 
       - name: Build Android APK (release, arm64)
         run: >
-          bazelisk build //:my-project_app_android
+          bazelisk build //:my_project_app_android
           --snap_flavor=production
           -c opt
           --copt=-DANDROID_WITH_JNI
