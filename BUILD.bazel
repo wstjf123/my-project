@@ -1,5 +1,22 @@
+load("@valdi//bzl:expand_template.bzl", "expand_template")
 load("@valdi//bzl/valdi:valdi_application.bzl", "valdi_application")
 load("@valdi//bzl/valdi:valdi_exported_library.bzl", "valdi_exported_library")
+
+APP_VERSION = "1.0.0"
+
+expand_template(
+    name = "my_project_android_manifest",
+    src = "AndroidAppManifest.xml.tpl",
+    output = "AndroidAppManifest.xml",
+    substitutions = {
+        "@VALDI_APP_PACKAGE@": "com.website.my_project",
+        "@VALDI_APP_NAME@": "my_project",
+        "@VALDI_APPLICATION_ATTRIBUTES@": "",
+        "@VALDI_ACTIVITY_ATTRIBUTES@": "",
+        "@VALDI_VERSION_NAME@": APP_VERSION,
+        "@VALDI_VERSION_CODE@": "1",
+    },
+)
 
 valdi_application(
     name = "my_project_app",
@@ -7,7 +24,9 @@ valdi_application(
     ios_families = ["iphone"],
     root_component_path = "App@my_project/src/App",
     title = "my_project",
-    version = "1.0.0",
+    version = APP_VERSION,
+    android_package = "com.website.my_project",
+    android_app_manifest = ":my_project_android_manifest",
     deps = ["//modules/my_project"],
 )
 
