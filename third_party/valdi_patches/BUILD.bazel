@@ -1,0 +1,4 @@
+exports_files([
+    "valdi_android_minify_and_fonts.patch",
+])
+

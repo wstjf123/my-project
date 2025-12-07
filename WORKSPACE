@@ -8,6 +8,8 @@ http_archive(
     name = "valdi",
     strip_prefix = "Valdi-beta-0.0.1",
     url = "https://github.com/Snapchat/Valdi/archive/refs/tags/beta-0.0.1.tar.gz",
+    patches = ["//third_party/valdi_patches:valdi_android_minify_and_fonts.patch"],
+    patch_args = ["-p1"],
 )
 
 
