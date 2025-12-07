@@ -1,0 +1,19 @@
+load("@valdi//bzl/valdi:valdi_application.bzl", "valdi_application")
+load("@valdi//bzl/valdi:valdi_exported_library.bzl", "valdi_exported_library")
+
+valdi_application(
+    name = "my-project_app",
+    ios_bundle_id = "com.website.my-project",
+    ios_families = ["iphone"],
+    root_component_path = "App@my-project/src/App",
+    title = "my-project",
+    version = "1.0.0",
+    deps = ["//modules/my-project"],
+)
+
+valdi_exported_library(
+    name = "my-project_export",
+    ios_bundle_id = "com.website.my-project.lib",
+    ios_bundle_name = "MyProject",
+    deps = ["//modules/my-project"],
+)
