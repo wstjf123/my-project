@@ -1,0 +1,61 @@
+name: Android APK Build
+
+on:
+  push:
+    branches:
+      - master
+      - main
+  workflow_dispatch:
+
+jobs:
+  build-android:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Update apt cache
+        run: sudo apt-get update
+
+      - name: Install Bazelisk
+        run: |
+          sudo curl -L "https://github.com/bazelbuild/bazelisk/releases/latest/download/bazelisk-linux-amd64" -o /usr/local/bin/bazelisk
+          sudo chmod +x /usr/local/bin/bazelisk
+
+      - name: Install Valdi CLI
+        run: npm install -g @snap/valdi
+
+      - name: Run Valdi dev_setup
+        run: valdi dev_setup
+
+      - name: Bazelisk projectsync build
+        run: |
+          bazelisk build //modules/my-project:my-project_projectsync \
+            --strategy=ValdiProjectSync=local \
+            --spawn_strategy=local
+
+      - name: Build Android APK
+        run: valdi build android
+
+      - name: Find APK
+        id: find_apk
+        run: |
+          APK_PATH=$(find . -type f -name "*.apk" -print -quit)
+          if [ -z "$APK_PATH" ]; then
+            echo "No APK found"
+            exit 1
+          fi
+          echo "apk_path=$APK_PATH" >> "$GITHUB_OUTPUT"
+
+      - name: Upload APK artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: ${{ steps.find_apk.outputs.apk_path }}
+
