@@ -7,10 +7,12 @@
 
 -ignorewarnings
 
-# Keep Valdi utility classes used from native code via JNI. Their
-# fully-qualified names are hard-coded in C++ (JavaCache.cpp and
-# valdi/src/valdi/android/InternedStringCPP.hpp), so renaming or
-# removing them leads to ClassNotFoundException at runtime.
--keep class com.snap.valdi.utils.** {
+# Keep Valdi classes used from native code via JNI and reflection.
+# Many of these have their fully-qualified names hard-coded in C++
+# (JavaCache.cpp, JNIConstants.hpp, valdi/src/valdi/android/*.hpp),
+# so renaming or removing them leads to ClassNotFoundException at
+# runtime. Keeping the entire com.snap.valdi.* package is safer than
+# trying to list every individual class.
+-keep class com.snap.valdi.** {
     *;
 }
