@@ -7,3 +7,14 @@
 
 -ignorewarnings
 
+# Keep Valdi marshaller classes used from native code via JNI. Their
+# fully-qualified names are hard-coded in C++ (JavaCache.cpp), so
+# renaming or removing them leads to ClassNotFoundException at runtime.
+-keep class com.snap.valdi.utils.ValdiMarshaller {
+    *;
+}
+
+-keep class com.snap.valdi.utils.ValdiMarshallerCPP {
+    *;
+}
+
