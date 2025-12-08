@@ -16,3 +16,17 @@
 -keep class com.snap.valdi.** {
     *;
 }
+
+# Keep Djinni / client wrappers for Valdi used from native code.
+# These are generated classes under com.snapchat.client.valdi* and
+# com.snapchat.client.valdi_core*, referenced by name from Djinni-
+# generated JNI glue and Valdi runtime C++. The upstream Valdi
+# client_proguard-rules only keeps enums in this package, so we keep
+# the full class hierarchies here.
+-keep class com.snapchat.client.valdi.** {
+    *;
+}
+
+-keep class com.snapchat.client.valdi_core.** {
+    *;
+}
