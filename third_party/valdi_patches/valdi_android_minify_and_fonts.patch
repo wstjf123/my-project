@@ -1,6 +1,6 @@
 --- a/bzl/valdi/valdi_android_application.bzl
 +++ b/bzl/valdi/valdi_android_application.bzl
-@@ -99,6 +99,11 @@
+@@ -99,6 +99,10 @@
          assets = assets,
          assets_dir = assets_dir,
          resource_files = resource_files,
@@ -8,7 +8,6 @@
 +            "@valdi//src:client_proguard-rules",
 +            "//:my_project_proguard.pro",
 +        ],
-+        shrink_resources = 1,
          tags = ["valdi_android_application"],
          deps = [
              ":{}".format(src_target),
